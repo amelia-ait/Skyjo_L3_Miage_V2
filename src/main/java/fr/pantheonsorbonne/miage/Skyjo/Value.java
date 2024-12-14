@@ -17,8 +17,10 @@ public enum Value {
     ELEVEN(11),
     TWELVE(12);
 
-    private int value;
+   
 
+    private int value;
+ 
     private Value(int value) {
         this.value = value;
     }

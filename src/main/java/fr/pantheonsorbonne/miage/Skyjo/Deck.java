@@ -1,52 +1,60 @@
 package fr.pantheonsorbonne.miage.Skyjo;
 
-
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class Deck {
-    private Queue<Card> deck = new LinkedList<>();
+    private static Queue<Card> deck = new LinkedList<>();
 
-    public Deck() {
-        this.deck = this.getRandomDeck();
+    static {
+    getRandomDeck();
     }
-    public  Queue<Card> getDeck(){
-        return this.deck;
+    
+
+    public static Queue<Card> getDeck(){
+        return deck;
     }
-    public Queue<Card> getRandomDeck() {
-        Queue<Card> randomDeck = new LinkedList<>();
-        List<Card> possibleCards = Card.getAllPossibleCards();
-        Collections.shuffle(possibleCards);
-        for (Card card : possibleCards) {
-            randomDeck.offer(card);
-        }
-        return randomDeck;
+    
+    public static void getRandomDeck() {
+        deck.clear();
+        List<Card> possibleCards = Card.getAllPossibleCards(); 
+        Collections.shuffle(possibleCards); 
+        deck.addAll(possibleCards);  
     }
 
-    public Card[] drawCards(int length) {
-        Card[] cards = new Card[length];
-        for(int i =0; i<length; i++){
-            Card drawCard = this.deck.poll();
-            cards[i]=drawCard;
+    public static HiddenCard[] drawCards(int length) {
+        HiddenCard[] cards = new HiddenCard[length];
+        for (int i = 0; i < length; i++) {
+            Card drawCard = deck.poll();
+            cards[i] = new HiddenCard(drawCard); 
         }
         return cards;
     }
+    
 
-    public Card drawCard() {
-        Card cardDrawn = this.deck.poll();
+    public static Card drawCard() {
+        Card cardDrawn = deck.poll();
         return cardDrawn;
         
     }
 
-   public static  String toString(Deck deck){
+   public static  String DecktoString(){ //méthode de test
     String result = "";
-    for(Card cards : deck.deck){
-        result += Card.toString(cards);
+    for(Card cards : deck){
+        result += cards.toString();
         result += " ";
     }
     return result;
-   }
+   }                          
+   public static  HiddenCard[][] newRandomHand() {
+    HiddenCard[] line1 = drawCards(4); 
+    HiddenCard[] line2 = drawCards(4); 
+    HiddenCard[] line3 = drawCards(4); 
+    HiddenCard[][] randomHand = {line1,line2,line3};
+    return randomHand; 
+}
+
 
 }

@@ -27,14 +27,12 @@ public class RandomDeck implements Deck {
 
 
     @Override
-    public Card[] getCards(int length) {
+    public  Card[] getCards(int length) {
         Card[] result = new Card[length];
         for (int i = 0; i < length; i++) {
             result[i] = this.deck.poll();
         }
         return result;
     }
-
-    
 
 }

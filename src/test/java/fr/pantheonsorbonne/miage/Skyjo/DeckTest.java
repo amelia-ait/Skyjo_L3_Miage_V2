@@ -9,11 +9,10 @@ public class DeckTest {
    
     @Test
    void testString(){
-    Deck decktest = new Deck();
-    String test =Deck.toString(decktest);
+    String test =Deck.DecktoString();
     System.out.println(test);
     int compteur= 0;
-    for(Card card : decktest.getDeck()){
+    for(Card card : Deck.getDeck()){
             compteur++;
         
     }
