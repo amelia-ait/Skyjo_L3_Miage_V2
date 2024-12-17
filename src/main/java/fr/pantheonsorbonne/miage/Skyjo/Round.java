@@ -23,7 +23,24 @@ public class Round {
                 startingPlayer = p;
             }
         }
-        return startingPlayer ;
+        return startingPlayer;
+    }
+
+    public boolean finishRound() {
+        int compteurCarteVisible = 2;
+        for (Player p : this.nbPlayers) {
+            Card[][] playerHand = p.getPlayerCards();
+            for (Card[] souCards : playerHand) {
+                for (Card card : souCards) {
+                    if (!(card instanceof HiddenCard)) {
+                        compteurCarteVisible++;
+                    }
+
+                }
+            }
+            return compteurCarteVisible == playerHand.length * playerHand[0].length;
+        }
+        return false;
     }
 
     /*
