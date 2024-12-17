@@ -5,6 +5,8 @@ public abstract class  Player {
     private String name;
     private final static int nbLigne =3;
     private final static int nbColonne =4;
+
+
     public Player(String name) {
         this.name = name;
         this.cards = new Card[nbLigne][nbColonne]; }
@@ -46,27 +48,39 @@ public abstract class  Player {
         this.cards[x][y] = card;
     }
 
-    
 
-    
-
-    public boolean colonne(int y){
-        if(this.cards[0][y]==this.cards[1][y] &&this.cards[0][y]==this.cards[2][y]){
-            Card[][] cards = new Card[3][this.cards.length];
-            for(int x = 0; x<this.cards.length;x++ ){
-                for(int j =0, k =0; j<this.cards[0].length; j++){
-                    if(j!=y){
-                        cards[x][k++]=this.cards[x][j];
-                    }
-                    if(j==y){
-                        Action.discardACard(this.cards[x][y]);
-                    }
+    public int sumCard(){ //a bouger dans player FAIT
+        int sum = 0;
+        for(Card[] subCards : this.cards){
+            for(Card card :subCards){
+                if(!(card instanceof HiddenCard)){
+                    sum+=card.getCardName().getCardValue();
                 }
             }
-            this.cards=cards;
-            return true;
         }
-        return false;
+        return sum;
+    }
+
+    public Card[][] colonne(int y){
+        int nbLine = this.cards.length;
+        int nbColonne = this.cards[0].length;
+        Card[][] replaceTab = new Card[nbLine][nbColonne];
+        for(int i =0; i <nbLine ; i++){
+            int k = 0;
+            for(int j =0; j<nbColonne;j++){
+                if(j!=y){
+                    replaceTab[i][k++] = this.cards[i][j];
+                }
+                else{
+                    Action.discardACard(this.cards[i][j]);
+                }
+            }
+        }
+        return replaceTab;
+    }
+
+    public boolean testColonne(int y){
+        return (this.cards[0][y] == this.cards[1][y])&&(this.cards[1][y]==this.cards[2][y]);
     }
 
 @Override

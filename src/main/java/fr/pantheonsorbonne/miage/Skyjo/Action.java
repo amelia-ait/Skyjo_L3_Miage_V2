@@ -5,11 +5,8 @@ public abstract class Action {
     public Action() {
     }
 
-    public boolean chooseDiscard() {
-        Card peekDiscard = Discard.peekCard();
-        return peekDiscard.getCardName().getCardValue() <= 3;
-
-    }
+    public  abstract  boolean chooseDiscard();
+    public  abstract  boolean chooseReplace(Card card);
 
     public static Card drawACardDeck() {
         Card cardDrawed = Deck.drawCard();
@@ -28,10 +25,6 @@ public abstract class Action {
 
     public static void discardACard(Card card){
         Discard.addCard(card);
-    }
-
-    public boolean chooseReplace(Card card) {
-        return (card.getCardName().getCardValue() < 8);
     }
 
 }
