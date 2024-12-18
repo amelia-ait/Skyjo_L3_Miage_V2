@@ -93,7 +93,7 @@ class Main {
 
     }
 
-    public static void main(String[] args) {
+    public void play() {
         System.out.println("GAME START !");
         Player player1 = new DumbPlayer("Jean");
         Player player2 = new DumbPlayer("Patrice");
