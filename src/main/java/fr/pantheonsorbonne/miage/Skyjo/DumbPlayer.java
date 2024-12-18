@@ -3,7 +3,7 @@ package fr.pantheonsorbonne.miage.Skyjo;
 import java.util.Random;
 
 public class DumbPlayer extends Player {
-    String name ;
+    String name;
     Random random = new Random();
     DumbPlayer(String name){
         super(name);

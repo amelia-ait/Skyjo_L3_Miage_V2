@@ -122,8 +122,8 @@ public abstract class  Player {
         }
         return false;
     }
-
-    public boolean colonne(int y){
+    
+    public boolean colonne(int y){ 
         if(this.cards[0][y]==this.cards[1][y] &&this.cards[0][y]==this.cards[2][y]){
             Card[][] cards = new Card[3][this.cards.length];
             for(int x = 0; x<this.cards.length;x++ ){
