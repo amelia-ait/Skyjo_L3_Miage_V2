@@ -23,6 +23,7 @@ public class DumbPlayer extends Player {
         }
 
         if(getAction().chooseDiscard()){
+            //System.out.println("On choisi la défausse");
             Card drawedCard = getAction().drawACardDiscard();
             this.replaceCard(x, y, drawedCard);
             this.colonne(y);

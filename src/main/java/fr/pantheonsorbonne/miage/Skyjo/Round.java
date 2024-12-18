@@ -127,6 +127,8 @@ class Main {
                 for (Player player : round.getnbPlayer()) {
                     player.toPlay();
                     System.out.println("Le tour du joueur "+player.getPlayerName());
+                    Card test = Discard.peekCard();
+                    System.out.println("La défausse " +test.toString());
                     player.displayCards();
                 }
                 /*
