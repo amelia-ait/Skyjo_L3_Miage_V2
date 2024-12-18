@@ -43,20 +43,22 @@ public class Round {
         return this.player1Start;
     }
 
-    public boolean endRound() {
+    public Object[] endRound() {
+        Player endingPlayer = this.getnbPlayer().get(0);
+        boolean endRound = false;
         for (Player player : this.getnbPlayer()) {
             if (!player.hasHiddenCard()) {
-                return true;
+                endingPlayer = player;
+                return new Object[]{!endRound, endingPlayer};
             }
         }
-        return false;
+        return new Object[]{endRound, endingPlayer};
     }
 
     public Object[] endGame(HashMap<String, Integer> score) {
         boolean maxScore = false;
         int min = Integer.MAX_VALUE;
         Player potentialWinner = null;
-
         for (Player player : this.getnbPlayer()) {
             int playerScore = score.get(player.getPlayerName());
 
@@ -71,6 +73,16 @@ public class Round {
         return new Object[] { maxScore, potentialWinner };
     }
 
+    public int minScore(Player ...players){
+        int min =145;
+        for(Player player : players){
+            if(min>player.sumCard()){
+                min = player.sumCard();
+            }
+        }
+        return min;
+    }
+   
 }
 
 class Main {
@@ -106,8 +118,11 @@ class Main {
                     System.out.println(player.getPlayerName() + " commence, en légende");
                 }
             }
-
-            while (!round.endRound()) {
+            Object[] infoEndRound = round.endRound();
+            boolean endRound = (boolean)infoEndRound[0];
+            Player endingPlayer = (Player)infoEndRound[1];
+            while (!endRound) {
+                 infoEndRound = round.endRound();
                 for (Player player : round.getnbPlayer()) {
                     player.toPlay();
                     System.out.println("Le tour du joueur " + player.getPlayerName());
@@ -115,12 +130,30 @@ class Main {
                     System.out.println("La défausse " + test.toString());
                     player.displayCards();
                 }
+                 endRound = (boolean)infoEndRound[0];
+                 endingPlayer = (Player)infoEndRound[1];
             }
+            
             for (Player players : round.getnbPlayer()) {
                 players.setAllCardVisible();
             }
+            System.out.println("Le joueur "+endingPlayer.getPlayerName()+" fini le tour");
+            if(endingPlayer.sumCard()!=round.minScore()){
+                int endingPlayerScoreDouble = endingPlayer.sumCard()*2;
+                System.out.println("Le joueur "+endingPlayer.getPlayerName()+" n'as pas le plus petit score donc son score de "+endingPlayer.sumCard()+" est doublé a "+endingPlayerScoreDouble);
+                score.put(endingPlayer.getPlayerName(), endingPlayerScoreDouble);
+            }
+            for (Player player : round.getnbPlayer()) {
+                if (!player.equals(endingPlayer)) {
+                    player.toPlay();
+                    System.out.println("Le tour du joueur " + player.getPlayerName());
+                    Card test = Discard.peekCard();
+                    System.out.println("La défausse " + test.toString());
+                    player.displayCards();
+                    score.put(player.getPlayerName(), score.getOrDefault(player.getPlayerName(), 0) + player.sumCard());
+                }
+            }
 
-            scoreUpdate(score, round.getnbPlayer());
             System.out.println(score);
             Object[] result = round.endGame(score);
             isGameOver = (boolean) result[0];
@@ -134,10 +167,5 @@ class Main {
             }
 
         }
-        // System.out.println("TOUT FONCTIONNE");
-        // System.out.println(Deck.getDeck());
-        // player1.displayCards();
-        // player2.displayCards();
-        // player1.returnCard(0, 0);
     }
 }
