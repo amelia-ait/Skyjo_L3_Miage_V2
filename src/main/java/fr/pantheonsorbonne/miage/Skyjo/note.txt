@@ -11,3 +11,7 @@ toplay() -> Next Action -> Class action
 Player est trop relié a discard c'est pas bon
 
 Changer Round car ya que deux joueur la, c'est pas bon
+
+A FAIRE 
+Joueur intelligent => modifier
+Réseaux

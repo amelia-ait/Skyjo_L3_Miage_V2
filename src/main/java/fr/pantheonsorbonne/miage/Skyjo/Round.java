@@ -4,18 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Round {
-    /*
-     * private Player player1 ;
-     * private Player player2 ;
-     */
     private ArrayList<Player> nbPlayer;
-    // private HashMap<String, Integer> score ;
     private boolean player1Start;
 
     public Round(Player... players) {
         nbPlayer = new ArrayList<>();
-        nbPlayer = setPlayers(players);
-        this.nbPlayer = nbPlayer;
+        this.nbPlayer = setPlayers(players);
 
     }
 
@@ -62,21 +56,20 @@ public class Round {
         boolean maxScore = false;
         int min = Integer.MAX_VALUE;
         Player potentialWinner = null;
-    
+
         for (Player player : this.getnbPlayer()) {
             int playerScore = score.get(player.getPlayerName());
-            
+
             if (playerScore >= 100) {
-                maxScore = true; 
+                maxScore = true;
             }
             if (playerScore < min) {
                 min = playerScore;
-                potentialWinner = player; 
+                potentialWinner = player;
             }
         }
-        return new Object[]{maxScore, potentialWinner};
+        return new Object[] { maxScore, potentialWinner };
     }
-    
 
 }
 
@@ -113,32 +106,17 @@ class Main {
                     System.out.println(player.getPlayerName() + " commence, en légende");
                 }
             }
-            /*
-             * if (round.getPlayer1Start()){
-             * System.out.println("Joueur 1 commence, en légende");
-             * 
-             * }
-             * else{
-             * System.out.println("Joueur 2 commence, en légende");
-             * }
-             */
 
             while (!round.endRound()) {
                 for (Player player : round.getnbPlayer()) {
                     player.toPlay();
-                    System.out.println("Le tour du joueur "+player.getPlayerName());
+                    System.out.println("Le tour du joueur " + player.getPlayerName());
                     Card test = Discard.peekCard();
-                    System.out.println("La défausse " +test.toString());
+                    System.out.println("La défausse " + test.toString());
                     player.displayCards();
                 }
-                /*
-                 * player1.toPlay();
-                 * player2.toPlay();
-                 * player1.displayCards();
-                 * player2.displayCards();
-                 */
             }
-            for(Player players : round.getnbPlayer()){
+            for (Player players : round.getnbPlayer()) {
                 players.setAllCardVisible();
             }
 
