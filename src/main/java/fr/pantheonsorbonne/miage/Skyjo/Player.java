@@ -39,6 +39,17 @@ public abstract class  Player {
             this.cards[x][y] = revealedCard;
         }
     }
+    public void setAllCardVisible() {
+        Card[][] playerCards = this.getPlayerCards(); 
+        for (int i = 0; i < playerCards.length; i++) {
+            for (int j = 0; j < playerCards[i].length; j++) {
+                if (playerCards[i][j] instanceof HiddenCard) {
+                    HiddenCard hiddenCard = (HiddenCard) playerCards[i][j];
+                    playerCards[i][j] = new Card(hiddenCard.getCardName());
+                }
+            }
+        }
+    }
 
     public int[] getFirstHiddenCard(){
         if(this.hasHiddenCard()){

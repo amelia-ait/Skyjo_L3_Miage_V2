@@ -4,7 +4,7 @@ public class DumbAction extends Action {
 
     @Override
     public  boolean chooseDiscard() {
-       return Action.peekAtCardDiscard().getCardName().getCardValue()<=3;
+       return Discard.peekCard().getCardName().getCardValue()<=3;
     }
 
     @Override
