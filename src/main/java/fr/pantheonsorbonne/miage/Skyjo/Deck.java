@@ -24,16 +24,15 @@ public class Deck {
         deck.addAll(possibleCards);  
     }
 
-    public static HiddenCard[] drawCards(int length) {
+    public static HiddenCard[] drawCards(int length) { 
         HiddenCard[] cards = new HiddenCard[length];
         for (int i = 0; i < length; i++) {
-            Card drawCard = deck.poll();
+            Card drawCard = deck.poll();  //retirer une carte du dessus de paquet 
             cards[i] = new HiddenCard(drawCard); 
         }
         return cards;
     }
     
-
     public static Card drawCard() {
         Card cardDrawn = deck.poll();
         return cardDrawn;

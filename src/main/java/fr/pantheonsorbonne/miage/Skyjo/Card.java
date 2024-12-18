@@ -14,11 +14,11 @@ public class Card {
 
     }
 
-    public Value getCardName() { // surcharger dans hidden card FAIT
+    public Value getCardName() { // surcharger dans hidden card 
         return this.cardName;
     }
 
-    public static List<Card> getAllPossibleCards() { // utiliser une hashMap FAIT
+    public static List<Card> getAllPossibleCards() { // utiliser une hashMap 
         nbCard.put(Value.MINUSTWO, 5);
         nbCard.put(Value.ZERO, 15);
         List<Card> possibleCards = new ArrayList<>(150);
