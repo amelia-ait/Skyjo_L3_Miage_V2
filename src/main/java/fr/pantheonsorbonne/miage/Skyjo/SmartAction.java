@@ -1,18 +1,15 @@
 package fr.pantheonsorbonne.miage.Skyjo;
 
-//public abstract class Action {
-public class Action {
+public class SmartAction {
 
-    public Action() { 
-    }
+//public abstract class Action {
+
 
     public boolean chooseDiscard() {
         Card peekDiscard = Discard.peekCard();
         return peekDiscard.getCardName().getCardValue() <= 3;
 
     }
-
-
 
     public Card drawACardDeck() {
         Card cardDrawed = Deck.drawCard();
@@ -38,3 +35,4 @@ public class Action {
     }
 
 }
+

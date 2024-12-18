@@ -2,7 +2,7 @@ package fr.pantheonsorbonne.miage.Skyjo.skyjoNetWork;
 
 import java.util.ArrayList;
 import java.util.Set;
-package fr.pantheonsorbonne.miage.engine.net;
+//package fr.pantheonsorbonne.miage.engine.net;
 
 import fr.pantheonsorbonne.miage.Facade;
 import fr.pantheonsorbonne.miage.HostFacade;
@@ -14,20 +14,21 @@ import fr.pantheonsorbonne.miage.game.Deck;
 import fr.pantheonsorbonne.miage.game.RandomDeck;
 import fr.pantheonsorbonne.miage.model.Game;
 import fr.pantheonsorbonne.miage.model.GameCommand;
+import fr.pantheonsorbonne.miage.Skyjo.Main;
 import fr.pantheonsorbonne.miage.Skyjo.Player;
 import fr.pantheonsorbonne.miage.Skyjo.Round;
 
 
-public class networkSkyjo extends Round {
+public class networkSkyjo extends Main {
     private static final int PLAYER_COUNT = 8;
     private final HostFacade hostFacade;
     private final Game skyjo;
 
     public networkSkyjo(Deck deck, HostFacade hostFacade, fr.pantheonsorbonne.miage.model.Game skyjo, Player... players) {
-        super(players);
+        //super(players);
         this.hostFacade = hostFacade;
         this.skyjo = skyjo;
-        ArrayList<Player> playersList = setPlayers(players);
+        //ArrayList<Player> playersList = setPlayers(players);
     }
 
 
@@ -46,7 +47,7 @@ public class networkSkyjo extends Round {
         //wait for enough players to join
         hostFacade.waitForExtraPlayerCount(PLAYER_COUNT);
 
-        Round host = new networkSkyjo(new RandomDeck(), hostFacade, skyjo);
+        Main host = new networkSkyjo(new RandomDeck(), hostFacade, skyjo);
         host.play();
         System.exit(0);
 
