@@ -58,19 +58,18 @@ public class Round {
     public Object[] endGame(HashMap<String, Integer> score) {
         boolean maxScore = false;
         int min = Integer.MAX_VALUE;
-        Player potentialWinner = null;
+        Player winner = null;
         for (Player player : this.getnbPlayer()) {
             int playerScore = score.get(player.getPlayerName());
-
             if (playerScore >= 100) {
                 maxScore = true;
             }
             if (playerScore < min) {
                 min = playerScore;
-                potentialWinner = player;
+                winner = player;
             }
         }
-        return new Object[] { maxScore, potentialWinner };
+        return new Object[] { maxScore, winner };
     }
 
     public int minScore(Player ...players){

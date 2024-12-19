@@ -5,51 +5,40 @@ import java.util.Random;
 public class DumbPlayer extends Player {
     String name;
     Random random = new Random();
-    DumbPlayer(String name){
+
+    DumbPlayer(String name) {
         super(name);
     }
-    //public void toPlay(){}
-    public void toPlay(){
+
+
+    public void toPlay() {
         Card[][] playerHand = this.getPlayerCards();
         int x = 0;
         int y = 0;
-        if(this.hasHiddenCard()){
-            x = this.getFirstHiddenCard()[0]; //random.nextInt(playerHand[0].length-1);   
-            y = this.getFirstHiddenCard()[1]; //random.nextInt(playerHand[1].length-1);
-        }
-        else{
-            x = random.nextInt(playerHand[0].length-1);   
-            y = random.nextInt(playerHand[1].length-1);
+        if (this.hasHiddenCard() && this.getFirstHiddenCard() != null) {
+            x = this.getFirstHiddenCard()[0]; 
+            y = this.getFirstHiddenCard()[1]; 
+        } else {
+            x = random.nextInt(playerHand[0].length - 1);
+            y = random.nextInt(playerHand[1].length - 1);
         }
 
-        if(getAction().chooseDiscard()){
-            //System.out.println("On choisi la défausse");
+        if (getAction().chooseDiscard()) {
             Card drawedCard = getAction().drawACardDiscard();
             this.replaceCard(x, y, drawedCard);
-            this.colonne(y);
-        }
-        else{
+           
+        } else {
             Card drawedCard = getAction().drawACardDeck();
-            if(getAction().chooseReplace(drawedCard)){
-            this.replaceCard(x, y, drawedCard);
-            this.colonne(y);
-            }
-            else{
+            if (getAction().chooseReplace(drawedCard)) {
+                this.replaceCard(x, y, drawedCard);
+            } else {
                 getAction().discardACard(drawedCard);
-                //this.returnCard(x, y);
-                this.colonne(y);
-                if(this.getFirstHiddenCard() == null){
+                if (this.getFirstHiddenCard() != null) {
+                    x = this.getFirstHiddenCard()[0];
+                    y = this.getFirstHiddenCard()[1];
                     this.setCardVisible(x, y);
+                }
             }
-        }
         }
     }
 }
-
-    
-
-    
-    
-    
-
-

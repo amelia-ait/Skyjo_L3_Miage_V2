@@ -1,4 +1,4 @@
-package fr.pantheonsorbonne.miage.Skyjo.skyjoLocal;
+/*package fr.pantheonsorbonne.miage.Skyjo.skyjoLocal;
 import java.util.Arrays;
 
 import fr.pantheonsorbonne.miage.Skyjo.Main;
@@ -17,4 +17,4 @@ public class LocalSkyjo extends Main {
 
     }
 
-}
+}*/

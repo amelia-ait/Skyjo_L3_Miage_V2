@@ -11,7 +11,7 @@ public class Deck {
     static {
     getRandomDeck();
     }
-    
+
 
     public static Queue<Card> getDeck(){
         return deck;
@@ -27,7 +27,7 @@ public class Deck {
     public static HiddenCard[] drawCards(int length) { 
         HiddenCard[] cards = new HiddenCard[length];
         for (int i = 0; i < length; i++) {
-            Card drawCard = deck.poll();  //retirer une carte du dessus de paquet 
+            Card drawCard = deck.poll();  
             cards[i] = new HiddenCard(drawCard); 
         }
         return cards;
@@ -39,14 +39,7 @@ public class Deck {
         
     }
 
-   public static  String DecktoString(){ //méthode de test
-    String result = "";
-    for(Card cards : deck){
-        result += cards.toString();
-        result += " ";
-    }
-    return result;
-   }                          
+                   
    public static  HiddenCard[][] newRandomHand() {
     HiddenCard[] line1 = drawCards(4); 
     HiddenCard[] line2 = drawCards(4); 
@@ -54,6 +47,5 @@ public class Deck {
     HiddenCard[][] randomHand = {line1,line2,line3};
     return randomHand; 
 }
-
 
 }

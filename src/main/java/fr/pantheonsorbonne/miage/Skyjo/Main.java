@@ -5,24 +5,17 @@ import java.util.HashMap;
 
 public abstract class Main {
 
-    
-    public static void scoreUpdate(HashMap<String, Integer> score, ArrayList<Player> players) {
-        for (Player player : players) {
-            score.put(player.getPlayerName(), score.getOrDefault(player.getPlayerName(), 0) + player.sumCard());
-        }
-
-    }
-
-    public void play() {
+  
+    public static void main(String[] args) {
         System.out.println("GAME START !");
-        Player player1 = new DumbPlayer("Jean");
-        Player player2 = new DumbPlayer("Patrice");
+        Player player1 = new SmartPlayer("Jean");
+        Player player2 = new SmartPlayer("Patricia");
         Player player3 = new DumbPlayer("Lucas");
         boolean isGameOver = false;
         HashMap<String, Integer> score = new HashMap<>();
         while (!isGameOver) {
             Deck.getRandomDeck();
-            Round round = new Round(player1, player2, player3);
+            Round round = new Round(player1,player2, player3);
             for (Player player : round.getnbPlayer()) {
                 player.setPlayerCards(Deck.newRandomHand());
                 for (int i = 0; i < 2; i++) {
@@ -35,7 +28,7 @@ public abstract class Main {
             Player startingPlayer = round.getStartingPlayer();
             for (Player player : round.getnbPlayer()) {
                 if (player.equals(startingPlayer)) {
-                    System.out.println(player.getPlayerName() + " commence, en légende");
+                    System.out.println(player.getPlayerName() + " commence");
                 }
             }
             Object[] infoEndRound = round.endRound();
@@ -44,10 +37,11 @@ public abstract class Main {
             while (!endRound) {
                  infoEndRound = round.endRound();
                 for (Player player : round.getnbPlayer()) {
-                    player.toPlay();
                     System.out.println("Le tour du joueur " + player.getPlayerName());
+                    player.displayCards();
                     Card test = Discard.peekCard();
                     System.out.println("La défausse " + test.toString());
+                    player.toPlay();     
                     player.displayCards();
                 }
                  endRound = (boolean)infoEndRound[0];
@@ -61,7 +55,8 @@ public abstract class Main {
             if(endingPlayer.sumCard()!=round.minScore()){
                 int endingPlayerScoreDouble = endingPlayer.sumCard()*2;
                 System.out.println("Le joueur "+endingPlayer.getPlayerName()+" n'as pas le plus petit score donc son score de "+endingPlayer.sumCard()+" est doublé a "+endingPlayerScoreDouble);
-                score.put(endingPlayer.getPlayerName(), endingPlayerScoreDouble);
+                int newScore = score.getOrDefault(endingPlayer.getPlayerName(), 0) + endingPlayerScoreDouble;
+                score.put(endingPlayer.getPlayerName(), newScore);
             }
             for (Player player : round.getnbPlayer()) {
                 if (!player.equals(endingPlayer)) {

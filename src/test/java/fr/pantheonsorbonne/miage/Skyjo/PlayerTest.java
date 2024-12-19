@@ -27,7 +27,6 @@ public class PlayerTest {
         player.replaceCard(1, 3, test1);
         player.replaceCard(1, 3, test2);
         System.out.println(player.toString());
-        System.out.println(Discard.DiscardtoString());
         System.out.println(Discard.peekCard().toString());
         Card test = Discard.peekCard();
         System.out.println(test.toString());
@@ -46,8 +45,8 @@ public class PlayerTest {
         player.replaceCard(2, 1, test);
         player.replaceCard(1, 1, test2);
         System.out.println(player.toString());
-        player.colonne(3);
+        player.column(3);
         System.out.println(player.toString());
-        System.out.println(Discard.DiscardtoString());
+
     }
 }

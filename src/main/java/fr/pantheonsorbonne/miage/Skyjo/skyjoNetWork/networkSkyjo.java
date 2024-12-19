@@ -48,7 +48,7 @@ public class networkSkyjo extends Main {
         hostFacade.waitForExtraPlayerCount(PLAYER_COUNT);
 
         Main host = new networkSkyjo(new RandomDeck(), hostFacade, skyjo);
-        host.play();
+       // host.play();
         System.exit(0);
 
 

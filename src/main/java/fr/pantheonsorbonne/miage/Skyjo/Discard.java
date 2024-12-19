@@ -5,9 +5,6 @@ import java.util.LinkedList;
 
 public class Discard {
     private static Deque<Card> discard = new LinkedList<>(); 
-       /* public Discard(){
-            this.discard = discard;
-        }*/
         static {
             discard.clear();
     }
@@ -20,15 +17,7 @@ public class Discard {
     }
 
     public static Card peekCard(){
-        return discard.peek(); // retourner une carte sans la retirer 
+        return discard.peek(); 
     }
 
-    public static  String DiscardtoString(){ // c'est du test 
-        String result = "";
-        for(Card cards : discard){
-            result += cards.toString();
-            result += " ";
-        }
-        return result;
-       }
 }
