@@ -12,7 +12,7 @@ public abstract class Player {
     public Player(String name) {
         this.name = name;
         this.cards = new Card[nbLigne][nbcolumn];
-        this.action = new Action(); 
+        this.action = new Action();
     }
 
     public String getPlayerName() {
@@ -23,9 +23,9 @@ public abstract class Player {
         return this.cards;
     }
 
-    public abstract void toPlay(); 
+    public abstract void toPlay();
 
-    public void setPlayerCards(HiddenCard[][] hiddenCards) { 
+    public void setPlayerCards(HiddenCard[][] hiddenCards) {
         this.cards = new Card[3][4];
         for (int i = 0; i < hiddenCards.length; i++) {
             for (int j = 0; j < hiddenCards[i].length; j++) {
@@ -34,7 +34,7 @@ public abstract class Player {
         }
     }
 
-    public void setCardVisible(int x, int y) { 
+    public void setCardVisible(int x, int y) {
         if (this.cards[x][y] instanceof HiddenCard) {
             HiddenCard hiddenCard = (HiddenCard) this.cards[x][y];
             Card revealedCard = new Card(hiddenCard.getCardName());
@@ -75,7 +75,7 @@ public abstract class Player {
         return new int[] { randomColumnNumber, randomLineNumber };
     }
 
-    public void replaceCard(int x, int y, Card card) { 
+    public void replaceCard(int x, int y, Card card) {
         Card replacedCard = new Card(this.cards[x][y].getCardName());
         if (replacedCard instanceof HiddenCard) {
             HiddenCard hiddenCard = (HiddenCard) this.cards[x][y];
@@ -86,7 +86,7 @@ public abstract class Player {
     }
 
     public Action getAction() {
-        return this.action; 
+        return this.action;
     }
 
     public void displayCards() {
@@ -98,7 +98,7 @@ public abstract class Player {
         }
     }
 
-    public int sumCard() { 
+    public int sumCard() {
         int sum = 0;
         Card[][] pHand = this.getPlayerCards();
         for (Card[] subCards : pHand) {
@@ -124,25 +124,28 @@ public abstract class Player {
     }
 
     public boolean column(int y) {
-        if (this.cards[0][y].getCardName().getCardValue() == this.cards[1][y].getCardName().getCardValue()
-                && this.cards[0][y].getCardName().getCardValue() == this.cards[2][y].getCardName().getCardValue()) {
-            Card[][] cards = new Card[3][this.cards[0].length - 1];
-            for (int x = 0; x < this.cards.length; x++) {
-                int k = 0; 
-                for (int j = 0; j < this.cards[0].length; j++) {
-                    if (j != y) { 
-                        cards[x][k++] = this.cards[x][j];
-                    }
-                    else  {
-                        getAction().discardACard(this.cards[x][y]);
+        Card card1 = this.cards[0][y];
+        Card card2 = this.cards[1][y];
+        Card card3 = this.cards[2][y];
+        if (!(card1 instanceof HiddenCard || card2 instanceof HiddenCard || card3 instanceof HiddenCard)) {
+            if (card1.getCardName().getCardValue() == card2.getCardName().getCardValue()
+                    && card1.getCardName().getCardValue() == card3.getCardName().getCardValue()) {
+                Card[][] cards = new Card[3][this.cards[0].length - 1];
+                for (int x = 0; x < this.cards.length; x++) {
+                    int k = 0;
+                    for (int j = 0; j < this.cards[0].length; j++) {
+                        if (j != y) {
+                            cards[x][k++] = this.cards[x][j];
+                        } else {
+                            getAction().discardACard(this.cards[x][y]);
+                        }
                     }
                 }
+                this.cards = cards;
+                return true;
             }
-            this.cards = cards;
-            return true;
         }
         return false;
     }
 
-   
 }

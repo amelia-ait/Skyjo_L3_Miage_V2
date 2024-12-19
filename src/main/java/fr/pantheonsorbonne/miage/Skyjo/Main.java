@@ -48,9 +48,7 @@ public abstract class Main {
                  endingPlayer = (Player)infoEndRound[1];
             }
             
-            for (Player players : round.getnbPlayer()) {
-                players.setAllCardVisible();
-            }
+            
             System.out.println("Le joueur "+endingPlayer.getPlayerName()+" fini le tour");
             if(endingPlayer.sumCard()!=round.minScore()){
                 int endingPlayerScoreDouble = endingPlayer.sumCard()*2;
@@ -68,7 +66,11 @@ public abstract class Main {
                     score.put(player.getPlayerName(), score.getOrDefault(player.getPlayerName(), 0) + player.sumCard());
                 }
             }
-
+            for (Player players : round.getnbPlayer()) {
+                players.setAllCardVisible();
+                System.out.println("Le jeu du joueur " + players.getPlayerName());
+                players.displayCards();
+            }
             System.out.println(score);
             Object[] result = round.endGame(score);
             isGameOver = (boolean) result[0];

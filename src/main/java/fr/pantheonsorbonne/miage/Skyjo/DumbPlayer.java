@@ -26,17 +26,20 @@ public class DumbPlayer extends Player {
         if (getAction().chooseDiscard()) {
             Card drawedCard = getAction().drawACardDiscard();
             this.replaceCard(x, y, drawedCard);
+            this.column(y);
            
         } else {
             Card drawedCard = getAction().drawACardDeck();
             if (getAction().chooseReplace(drawedCard)) {
                 this.replaceCard(x, y, drawedCard);
+                this.column(y);
             } else {
                 getAction().discardACard(drawedCard);
                 if (this.getFirstHiddenCard() != null) {
                     x = this.getFirstHiddenCard()[0];
                     y = this.getFirstHiddenCard()[1];
                     this.setCardVisible(x, y);
+                    this.column(y);
                 }
             }
         }
