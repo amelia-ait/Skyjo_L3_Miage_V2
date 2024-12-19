@@ -68,14 +68,9 @@ public class SmartPlayer extends Player {
             x = this.getFirstHiddenCard()[0];
             y = this.getFirstHiddenCard()[1];
         } else {
-            int lengthX = playerHand[0].length - 1;
-            int lengthY = playerHand[1].length - 1;
-            if (lengthX < 0 || lengthY < 0) {
-                lengthX = 0;
-                lengthY = 0;
-            }
-            x = random.nextInt(lengthX);
-            y = random.nextInt(lengthY);
+            
+            x = random.nextInt(1);
+            y = random.nextInt(1);
 
         }
         Card discardPeek = getAction().peekAtCardDiscard();
