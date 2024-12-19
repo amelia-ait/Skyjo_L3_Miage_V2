@@ -10,7 +10,7 @@ public class SmartPlayer extends Player {
         super(name);
     }
 
-    public int[] buildColumn(Card testCard) {
+    public int[] finishColumn(Card testCard) {
         int[] columnCoord = { -1, -1 };
         int lineCoord = -1;
         if (testCard.getCardName().getCardValue() >= 0) {
@@ -33,54 +33,68 @@ public class SmartPlayer extends Player {
                     return columnCoord;
                 }
             }
-
-            lineCoord = 0;
-            for (int j = 0; j < this.getPlayerCards()[0].length; j++) {
-                for (int line = 0; line < this.getPlayerCards().length; line++) {
-                    Card compareCard = this.getPlayerCards()[line][j];
-                    if (compareCard.getCardName().getCardValue() == testCard.getCardName().getCardValue()
-                            && !(compareCard instanceof HiddenCard)) {
-                        if (lineCoord != line) {
-                            columnCoord[0] = lineCoord;
-                            columnCoord[1] = j;
-                            break;
-                        } else {
-
-                            lineCoord++;
-                            columnCoord[0] = lineCoord;
-                            columnCoord[1] = j;
-                        }
-
-                        return columnCoord;
-                    }
-                }
-            }
         }
         return columnCoord;
     }
 
+    public int[] buildColumn(Card testCard) {
+        int[] columnCoord = { -1, -1 };
+        int lineCoord = 0;
+        for (int j = 0; j < this.getPlayerCards()[0].length; j++) {
+            for (int line = 0; line < this.getPlayerCards().length; line++) {
+                Card compareCard = this.getPlayerCards()[line][j];
+                if (compareCard.getCardName().getCardValue() == testCard.getCardName().getCardValue()
+                        && !(compareCard instanceof HiddenCard)) {
+                    if (lineCoord != line) {
+                        columnCoord[0] = lineCoord;
+                        columnCoord[1] = j;
+                        break;
+                    } else {
+
+                        lineCoord++;
+                        columnCoord[0] = lineCoord;
+                        columnCoord[1] = j;
+                    }
+
+                    return columnCoord;
+                }
+            }
+        }
+
+        return columnCoord;
+    }
+
+
     @Override
     public void toPlay() {
-        Card[][] playerHand = this.getPlayerCards();
+        
         int x = 0;
         int y = 0;
         if (this.hasHiddenCard() && this.getFirstHiddenCard() != null) {
             x = this.getFirstHiddenCard()[0];
             y = this.getFirstHiddenCard()[1];
         } else {
-            
+
             x = random.nextInt(1);
             y = random.nextInt(1);
 
         }
         Card discardPeek = getAction().peekAtCardDiscard();
+        int[] finishColumn = finishColumn(discardPeek);
         int[] buildColumn = buildColumn(discardPeek);
-        if (buildColumn[0] != -1) {
+        if (finishColumn[0] != -1) {
+            Card drawedCard = getAction().drawACardDiscard();
+            this.replaceCard(finishColumn[0], finishColumn[1], drawedCard);
+            this.column(finishColumn[1]);
+
+        } 
+        else if (buildColumn[0] != -1) {
             Card drawedCard = getAction().drawACardDiscard();
             this.replaceCard(buildColumn[0], buildColumn[1], drawedCard);
             this.column(buildColumn[1]);
 
-        } else if (getAction().chooseDiscard()) {
+        } 
+        else if (getAction().chooseDiscard()) {
             Card drawedCard = getAction().drawACardDiscard();
             this.replaceCard(x, y, drawedCard);
             this.column(y);
@@ -89,8 +103,13 @@ public class SmartPlayer extends Player {
         else {
             Card drawedCard = getAction().drawACardDeck();
             System.out.println("La carte pioché est " + drawedCard.toString());
+            finishColumn = finishColumn(drawedCard);
             buildColumn = buildColumn(drawedCard);
-            if (buildColumn[0] != -1) {
+            if (finishColumn[0] != -1) {
+                this.replaceCard(finishColumn[0], finishColumn[1], drawedCard);
+                this.column(finishColumn[1]);
+            }
+            else if (buildColumn[0] != -1) {
                 this.replaceCard(buildColumn[0], buildColumn[1], drawedCard);
                 this.column(buildColumn[1]);
             }
